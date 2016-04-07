@@ -1,6 +1,6 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('backbone-metal-classify'), require('backbone-normalize-hash'), require('backbone.radio'), require('underscore'), require('es6-promise')) : typeof define === 'function' && define.amd ? define(['backbone-metal-classify', 'backbone-normalize-hash', 'backbone.radio', 'underscore', 'es6-promise'], factory) : global.Backbone.Service = factory(global.classify, global.normalizeHash, global.Radio, global._, global.PromisePolyfill);
-})(this, function (classify, normalizeHash, Radio, _, PromisePolyfill) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('backbone.radio'), require('underscore'), require('backbone-metal-classify'), require('es6-promise')) : typeof define === 'function' && define.amd ? define(['backbone.radio', 'underscore', 'backbone-metal-classify', 'es6-promise'], factory) : global.Backbone.Service = factory(global.Radio, global._, global.classify, global.PromisePolyfill);
+})(this, function (Radio, _, classify, PromisePolyfill) {
   'use strict';
 
   var resolved = PromisePolyfill.Promise.resolve();
@@ -22,8 +22,7 @@
           return _this.start();
         });
       });
-      var requests = normalizeHash(this, 'requests');
-
+      var requests = _.result(this, 'requests');
       _.each(requests, function (val, key) {
         _this.reply(key, function () {
           for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -31,7 +30,7 @@
           }
 
           var promise = start().then(function () {
-            return _this[key].apply(_this, args);
+            return _this[val].apply(_this, args);
           });
 
           promise['catch'](function (err) {
