@@ -68,7 +68,7 @@
   "dependencies": {
     "backbone": "^1.1.2",
     "backbone-metal-classify": "^1.0.1",
-    "backbone.radio": "2.0.0-pre.1",
+    "backbone.radio": "^2.0.0",
     "es6-promise": "^2.1.1",
     "underscore": "^1.8.3"
   }
